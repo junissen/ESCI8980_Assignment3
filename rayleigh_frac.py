@@ -14,7 +14,10 @@ Created 05/2017 by Julia Nissen
 import numpy as np
 
 class F_function(): 
-    
+    """
+    Class includes loops to change the fraction of moisture remaining and calculate the resultant 
+    d18O of vapor or condensate.
+    """
     def __init__ (self, dv_i, alpha, ax, xlim, ylim):
         self.dv_i = dv_i
         self.F = 1.0
@@ -27,6 +30,9 @@ class F_function():
         self.y_lim = ylim
 
     def dv_function(self):
+        """
+        Function calculates the d18O of vapor due to changing moisture fraction
+        """
         ax = self.ax
         F = self.F
         F_array = []
@@ -41,9 +47,15 @@ class F_function():
         return vapor 
     
     def dv_function_print(self):
+        """
+        Function outputs the initial value for d18O of vapor
+        """
         return self.dv_array[0]
         
     def dl_function(self):
+        """
+        Function calculates the d18O of condensate due to changing moisture fraction
+        """
         ax = self.ax
         F = self.F
         F_array = []
@@ -59,9 +71,16 @@ class F_function():
         return liquid
     
     def dl_function_print(self):
+        """
+        Function outputs the initial value for d18O of condensate 
+        """
         return self.dl_array[0]
     
+    
 class F_function_find():
+    """
+    Class calculates the fraction of moisture remaining for a specific alpha and condensate value.
+    """
     
     def __init__(self, dv_i, alpha, dl_avg, ax):
         self.dv_i = dv_i
@@ -70,17 +89,28 @@ class F_function_find():
         self.ax = ax
     
     def F_function_find(self):
+        """
+        Function calculates the fraction of moisture remaining for a specific alpha and condensate value.
+        """
         dv = ((self.dl + 1000)/self.alpha) - 1000
         F = np.exp((np.log(dv + 1000) - np.log(self.dv_i + 1000))/(self.alpha - 1))
         return F
     
     def F_function_plot(self):
+        """
+        Function plots the fraction of moisture remaining for a specific alpha and condensate value
+        on chosen axis as a black 'x'.
+        """
         ax = self.ax
         dv = ((self.dl + 1000)/self.alpha) - 1000
         F = np.exp((np.log(dv + 1000) - np.log(self.dv_i + 1000))/(self.alpha - 1))
         return ax.plot(F, self.dl,'xk')
     
 class T_function():
+    """
+    Class includes loops to change the temperature and calculate the resultant 
+    d18O of vapor or condensate.
+    """
     
     def __init__ (self, d_source, F, T_start, T_end, dT, ax, xlim, ylim):
         self.F = F
@@ -94,6 +124,9 @@ class T_function():
         self.dl_array = []
         
     def dl_function(self):
+        """
+        Function calculates the d18O of condensate due to changing temperature
+        """
         T_array = []
         T = self.T_start
         
@@ -113,7 +146,10 @@ class T_function():
         return self.ax.plot(T_array, self.dl_array, '#6495ED', linewidth = 1)
     
 class T_function_find():
-     
+    """
+    Class plots the temperature and d18O of condensate on the specified axis
+    """
+    
     def __init__(self, T_gen, dl_gen, ax):
         self.T_gen = T_gen
         self.dl_gen = dl_gen
@@ -121,6 +157,9 @@ class T_function_find():
     
     
     def T_function_plot(self):
+        """
+        Function plots the temperature and d18O of condensate on the specified axis
+        """
         return self.ax.plot(self.T_gen, self.dl_gen, 'xk')
         
     
