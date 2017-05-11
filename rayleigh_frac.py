@@ -79,7 +79,7 @@ class F_function():
     
 class F_function_find():
     """
-    Class calculates the fraction of moisture remaining for a specific alpha and condensate value.
+    Class calculates and plots the fraction of moisture remaining for a specific alpha and condensate value.
     """
     
     def __init__(self, dv_i, alpha, dl_avg, ax):
@@ -109,7 +109,7 @@ class F_function_find():
 class T_function():
     """
     Class includes loops to change the temperature and calculate the resultant 
-    d18O of vapor or condensate.
+    d18O of condensate.
     """
     
     def __init__ (self, d_source, F, T_start, T_end, dT, ax, xlim, ylim):
